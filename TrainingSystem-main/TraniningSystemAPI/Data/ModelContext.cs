@@ -6,6 +6,7 @@ namespace TraniningSystemAPI.Data
     public partial class ModelContext : DbContext
     {
         public ModelContext(DbContextOptions<ModelContext> options) : base(options) { }
+        public DbSet<Account> Account { get; set; }
         public DbSet<Trainer> Trainer { get; set; }
         public DbSet<Classroom> Classroom { get; set; }
         public DbSet<Document> Document { get; set; }
@@ -31,6 +32,8 @@ namespace TraniningSystemAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.Entity<Knowledge>().ToTable("Account");
             modelBuilder.Entity<Knowledge>().ToTable("Knowledge");
             modelBuilder.Entity<TrainingProgram>().ToTable("TrainingProgram");
             modelBuilder.Entity<Skill>().ToTable("Skill");

@@ -17,7 +17,7 @@ namespace TrainingSystemTraineeWEB.Pages.Trainee
         public Course Course { get; set; } 
         public void CallAPIGetCourse()
         {
-            var url = "https://localhost:44321/api/course";
+            var url = "https://localhost:5001/api/course";
             var responseTask = client.GetAsync(url + "/" + CourseID);
             responseTask.Wait();
             HttpResponseMessage resultl = responseTask.Result;
@@ -31,7 +31,7 @@ namespace TrainingSystemTraineeWEB.Pages.Trainee
 
         public void CallApiToGetList(string type)
         {
-            var url = "https://localhost:44321/api/course";
+            var url = "https://localhost:5001/api/course";
             var responseTask = client.GetAsync(url + "/" + CourseID + "/" + type);
             responseTask.Wait();
             HttpResponseMessage resultl = responseTask.Result;

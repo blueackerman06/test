@@ -30,7 +30,7 @@ namespace TraniningSystemAPI.Controllers
         public Course GetCourseByID([FromRoute] int CourseID)
         {
             Course course = _context.Course.Find(CourseID);
-            if(course==null) return null;
+            if (course == null) return null;
 
             List<Document> documents = _context.Document.Where(x => x.CourseID == CourseID).ToList();
             if (documents != null) course.Documents = documents;
@@ -46,12 +46,12 @@ namespace TraniningSystemAPI.Controllers
         public IEnumerable<SkillDto> GetSkillOfCourseByID([FromRoute] int CourseID)
         {
             var result = from t in _context.SkillCourse
-                         where t.CourseKey == CourseID
-                         select new SkillDto()
-                         {
-                             SkillID = t.Skill.SkillID,
-                             SkillName = t.Skill.SkillName,
-                         };
+                where t.CourseKey == CourseID
+                select new SkillDto()
+                {
+                    SkillID = t.Skill.SkillID,
+                    SkillName = t.Skill.SkillName,
+                };
             return result;
         }
 
@@ -60,12 +60,12 @@ namespace TraniningSystemAPI.Controllers
         public IEnumerable<KnowledgeDto> GetKnowledgeOfCourseByID([FromRoute] int CourseID)
         {
             var result = from t in _context.KnowledgeCourse
-                         where t.CourseKey == CourseID
-                         select new KnowledgeDto()
-                         {
-                             KnowledgeID = t.Knowledge.KnowledgeID,
-                             KnowledgeName = t.Knowledge.KnowledgeName,
-                         };
+                where t.CourseKey == CourseID
+                select new KnowledgeDto()
+                {
+                    KnowledgeID = t.Knowledge.KnowledgeID,
+                    KnowledgeName = t.Knowledge.KnowledgeName,
+                };
             return result;
         }
 
@@ -87,6 +87,7 @@ namespace TraniningSystemAPI.Controllers
                 _context.SaveChanges();
                 return "OK";
             }
+
             return "NOTOK";
         }
 
@@ -98,5 +99,26 @@ namespace TraniningSystemAPI.Controllers
             _context.SaveChanges();
             return RedirectPermanent("https://localhost:44331/trainer/add-course.htm");
         }
+
+
+        [HttpPost("join")]
+        public IActionResult JoinCourse([FromBody] CourseParticipantViewModel model)
+        {
+            _context.CourseParticipant.Add(new CourseParticipant()
+            {
+                CourseKey = model.CourseKey,
+                TraineeKey = model.TraineeKey,
+                AccountId = model.AccountId
+            });
+            _context.SaveChanges();
+            return Ok(model);
+        }
+    }
+
+    public class CourseParticipantViewModel
+    {
+        public int CourseKey { get; set; }
+        public int TraineeKey { get; set; }
+        public int AccountId { get; set; }
     }
 }
