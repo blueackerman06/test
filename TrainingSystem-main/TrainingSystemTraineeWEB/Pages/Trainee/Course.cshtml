@@ -3,6 +3,7 @@
 @{
     ViewBag.PageName = "Course";
 }
+@using Newtonsoft.Json
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- ========== form-elements-wrapper start ========== -->
@@ -28,8 +29,10 @@
             </tr>
         </thead>
         <tbody id="course-list">
+
             @foreach (var course in Model.ListCourse)
             {
+
                 <tr>
                     <th scope="row" width="20" style="padding-right: 20px;">@course.CourseID</th>
                     <td width="100" style="padding-right: 50px;">
@@ -48,7 +51,8 @@
                         <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/@course.CourseID">Chi
                             tiết</a>
                     </td>
-                    <td width="100" style="padding-right: 50px;">
+                    <td width="100" style="padding-right: 50px;" class="course-join">
+
                         <a onclick="join(@course.CourseID)" class="main-btn success-btn btn-hover btn-sm" href="#">Tham
                             gia</a>
                     </td>
@@ -59,6 +63,22 @@
 </div>
 
 <script>
+
+    @{
+        var json = JsonConvert.SerializeObject(Model.ListCourse);
+    }
+    const data = @Html.Raw(json);
+    const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+    const indexs = [];
+    data.forEach((item, index) => {
+        if(item.AccountIds.includes(parseInt(payload.unique_name))){
+            indexs.push(index);
+        }
+    });
+    listBtnJoin = document.querySelectorAll('.course-join');
+    indexs.forEach(item => {
+        listBtnJoin[item].style.display = 'none';
+    })
 
     function decodeJWT(token) {
         // Split the token into three parts (header, payload, signature)
@@ -78,6 +98,7 @@
     }
 
     async function join(courseId) {
+        const btn = event.target;
         const payload = decodeJWT(localStorage.getItem('token'))?.payload;
         if (!payload.unique_name) {
             window.alert('please login!');
@@ -98,11 +119,10 @@
         });
 
         if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('token', data.token);
-            event.target.style.display = 'none';
+            btn.style.display = 'none';
 
         } else {
+
             window.alert('join error');
         }
     }

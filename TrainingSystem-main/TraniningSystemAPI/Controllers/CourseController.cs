@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
@@ -20,9 +21,35 @@ namespace TraniningSystemAPI.Controllers
 
         // GET: api/course
         [HttpGet]
-        public IEnumerable<Course> Get()
+        public IEnumerable<CourseViewModel> Get()
         {
-            return _context.Course.ToList();
+            return _context.Course.Select(item => new CourseViewModel
+            {
+                CourseID = item.CourseID,
+                NumberOfLesson = item.NumberOfLesson,
+                Target = item.Target,
+                Content = item.Content,
+                AssessmentForm = item.AssessmentForm,
+                CourseName = item.CourseName,
+                CalculatesPointGuide = item.CalculatesPointGuide,
+                AccountIds = item.CourseParticipant.Select(a => a.AccountId).ToList()
+            }).ToList();
+        }
+
+        // GET: api/course
+        [HttpGet("result")]
+        public IEnumerable<object> CourseResult(int userId)
+        {
+            return _context.CourseParticipant
+                .Where(item => item.AccountId == userId)
+                .Select(item => new
+                { 
+                    Course = item.Course.CourseName,
+                    Point = item.Point,
+                    IsComplete = item.IsComplete,
+                    ResultOfEvaluation = item.ResultOfEvaluation,
+                })
+                .ToList();
         }
 
         // GET: api/course/{CourseID}
@@ -73,7 +100,10 @@ namespace TraniningSystemAPI.Controllers
         [HttpGet("search")]
         public IEnumerable<Course> SearchCourse(string searchString)
         {
-            return _context.Course.Where(c => c.CourseName.Contains(searchString)).ToList();
+            return _context.Course
+                .Include(item => item.CourseParticipant)
+                .Where(c => c.CourseName.Contains(searchString))
+                .ToList();
         }
 
         // PUT: api/course/{courseID}
@@ -104,10 +134,11 @@ namespace TraniningSystemAPI.Controllers
         [HttpPost("join")]
         public IActionResult JoinCourse([FromBody] CourseParticipantViewModel model)
         {
+            var trainee = _context.Trainee.First(item => item.AccountId == model.AccountId);
             _context.CourseParticipant.Add(new CourseParticipant()
             {
                 CourseKey = model.CourseKey,
-                TraineeKey = model.TraineeKey,
+                TraineeKey = trainee.TraineerID,
                 AccountId = model.AccountId
             });
             _context.SaveChanges();
@@ -120,5 +151,17 @@ namespace TraniningSystemAPI.Controllers
         public int CourseKey { get; set; }
         public int TraineeKey { get; set; }
         public int AccountId { get; set; }
+    }
+
+    public class CourseViewModel
+    {
+        public int CourseID { get; set; }
+        public string CourseName { get; set; }
+        public int NumberOfLesson { get; set; }
+        public string Target { get; set; }
+        public string Content { get; set; }
+        public string AssessmentForm { get; set; }
+        public string CalculatesPointGuide { get; set; }
+        public List<int>? AccountIds { get; set; }
     }
 }

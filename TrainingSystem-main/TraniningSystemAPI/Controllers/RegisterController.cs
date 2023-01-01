@@ -21,11 +21,21 @@ namespace TraniningSystemAPI.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] RegisterViewModel model)
         {
-            _context.Account.Add(new Account()
+
+            var account = new Account()
             {
                 Username = model.Username,
                 Email = model.Email,
-                Password = model.Password
+                Password = model.Password,
+                Fullname = model.FullName,
+                Role = "trainee"
+            };
+            _context.Account.Add(account);
+            _context.SaveChanges();
+            _context.Trainee.Add(new Trainee()
+            {
+                AccountId = account.Id,
+                TraineeName = model.FullName
             });
             _context.SaveChanges();
             return Ok(model);
@@ -37,5 +47,6 @@ namespace TraniningSystemAPI.Controllers
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+        public string FullName { get; set; }
     }
 }

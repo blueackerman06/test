@@ -139,7 +139,7 @@
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem('token', data.token);
-      window.location.href = "trainee/course.htm";
+      window.location.href = "trainer.htm";
     } else {
       window.alert('login error');
     }

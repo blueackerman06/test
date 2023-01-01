@@ -17,6 +17,7 @@ namespace TraniningSystemAPI.Entity
         public string? Fullname { get; set; }
         public string? Avatar { get; set; }
         public string? Phone { get; set; }
+        public string?  Role { get; set; }
         public DateTime? CreateTime { get; set; }
         public DateTime? UpdateTime { get; set; }
         
