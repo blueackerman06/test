@@ -132,7 +132,7 @@
     }
 
     function UpdateSkill(index) {
-        fetch('https://localhost:44321/api/skill/' + parseInt(index) + '?SkillName=' + $('#skill-' + index + '').val(), {
+        fetch('https://localhost:5001/api/skill/' + parseInt(index) + '?SkillName=' + $('#skill-' + index + '').val(), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -145,7 +145,7 @@
     }
 
     function AddSkillTrainingProgram() {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + $('#skillSelect').val(), {
+        fetch('https://localhost:5001/api/training/@Model.TrainingProgramID/skill/' + $('#skillSelect').val(), {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
@@ -154,7 +154,7 @@
     }
 
     function DeleteSkillTrainingProgram(index) {
-            fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + parseInt(index), {
+            fetch('https://localhost:5001/api/training/@Model.TrainingProgramID/skill/' + parseInt(index), {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'
@@ -172,7 +172,7 @@
     }
 
     function UpdateKnowledge(index) {
-        fetch('https://localhost:44321/api/knowledge/' + parseInt(index) + '?KnowledgeName=' + $('#knowledge-' + index + '').val(), {
+        fetch('https://localhost:5001/api/knowledge/' + parseInt(index) + '?KnowledgeName=' + $('#knowledge-' + index + '').val(), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -185,7 +185,7 @@
     }
 
     function AddKnowledgeTrainingProgram() {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + $('#knowledgeSelect').val(), {
+        fetch('https://localhost:5001/api/training/@Model.TrainingProgramID/knowledge/' + $('#knowledgeSelect').val(), {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
@@ -194,7 +194,7 @@
     }
 
     function DeleteKnowledgeTrainingProgram(index) {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + parseInt(index), {
+        fetch('https://localhost:5001/api/training/@Model.TrainingProgramID/knowledge/' + parseInt(index), {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'
@@ -206,7 +206,7 @@
 
     //---------------------------------------------Course---------------------------------------------//
     function AddCourseTrainingProgram() {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + $('#courseSelect').val(), {
+        fetch('https://localhost:5001/api/training/@Model.TrainingProgramID/course/' + $('#courseSelect').val(), {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
@@ -215,7 +215,7 @@
     }
 
     function DeleteCourseTrainingProgram(index) {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + parseInt(index), {
+        fetch('https://localhost:5001/api/training/@Model.TrainingProgramID/course/' + parseInt(index), {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'

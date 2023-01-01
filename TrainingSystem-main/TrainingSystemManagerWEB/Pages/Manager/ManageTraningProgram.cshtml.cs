@@ -12,7 +12,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
         public List<TrainingProgramDto> TrainingPrograms = new List<TrainingProgramDto>();
         public void OnGet()
         {
-            var urlTrainingProgram = "https://localhost:44321/api/training";
+            var urlTrainingProgram = "https://localhost:5001/api/training";
             var responseTaskTrainingProgram = client.GetAsync(urlTrainingProgram);
             responseTaskTrainingProgram.Wait();
             HttpResponseMessage resultTrainingProgram = responseTaskTrainingProgram.Result;

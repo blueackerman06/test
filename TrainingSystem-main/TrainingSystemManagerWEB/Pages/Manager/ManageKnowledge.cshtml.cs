@@ -13,7 +13,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
         public List<Knowledge> ListKnowledge { get; set; }
         public void OnGet()
         {
-            var url = "https://localhost:44321/api/knowledge";
+            var url = "https://localhost:5001/api/knowledge";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;

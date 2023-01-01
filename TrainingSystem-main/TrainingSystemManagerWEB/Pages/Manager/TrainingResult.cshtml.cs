@@ -16,7 +16,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
         public List<JobPosition> ListJobPosition { get; set; }
         public void GetListSkill()
         {
-            var url = "https://localhost:44321/api/skill";
+            var url = "https://localhost:5001/api/skill";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;
@@ -27,7 +27,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
 
         public void GetTrainingResults()
         {
-            var urlTrainingProgram = "https://localhost:44321/api/course-participant";
+            var urlTrainingProgram = "https://localhost:5001/api/course-participant";
             var responseTaskTrainingProgram = client.GetAsync(urlTrainingProgram);
             responseTaskTrainingProgram.Wait();
             HttpResponseMessage resultTrainingProgram = responseTaskTrainingProgram.Result;
@@ -41,7 +41,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
 
         public void GetListKnowledge()
         {
-            var url = "https://localhost:44321/api/knowledge";
+            var url = "https://localhost:5001/api/knowledge";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;
@@ -52,7 +52,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
 
         public void GetListJobPosition()
         {
-            var url = "https://localhost:44321/api/job-position";
+            var url = "https://localhost:5001/api/job-position";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;
