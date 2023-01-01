@@ -7,68 +7,71 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using TraniningSystemAPI.Data;
-
-
-namespace TraniningSystemAPI.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 
-[Route("api/[controller]")]
-[ApiController]
-public class LoginController : ControllerBase
+namespace TraniningSystemAPI.Controllers
 {
-    
-    public IConfiguration Configuration { get; }
-    private readonly ModelContext _context;
-    
-    public LoginController(IConfiguration configuration, ModelContext context)
+
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginController : ControllerBase
     {
-        _context = context;
-        Configuration = configuration;
-    }
-    
-    [HttpPost]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
-    {
-        var account =
-            _context.Account
-                .Where(item => item.Username == request.username && request.password == item.Password)
-                .FirstOrDefault();
-        
-        // Validate the user's credentials (e.g. using a database or other storage)
-        // var user = await _userService.ValidateCredentials(request.Username, request.Password);
-        if (account == null)
+
+        public IConfiguration Configuration { get; }
+        private readonly ModelContext _context;
+
+        public LoginController(IConfiguration configuration, ModelContext context)
         {
-            return Unauthorized();
+            _context = context;
+            Configuration = configuration;
         }
 
-        // Generate a JWT for the user
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]);
-        Console.WriteLine(key);
-        Console.WriteLine(Configuration["AllowedHosts"]);
-        var tokenDescriptor = new SecurityTokenDescriptor
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            Subject = new ClaimsIdentity(new Claim[]
+            var account =
+                _context.Account
+                    .Where(item => item.Username == request.username && request.password == item.Password)
+                    .FirstOrDefault();
+
+            // Validate the user's credentials (e.g. using a database or other storage)
+            // var user = await _userService.ValidateCredentials(request.Username, request.Password);
+            if (account == null)
             {
+                return Unauthorized();
+            }
+
+            // Generate a JWT for the user
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]);
+            Console.WriteLine(key);
+            Console.WriteLine(Configuration["AllowedHosts"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
                 new Claim(ClaimTypes.Name, account.Id.ToString())
-            }),
-            Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        var tokenString = tokenHandler.WriteToken(token);
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
 
-        // Return the token to the client
-        return Ok(new
+            // Return the token to the client
+            return Ok(new
+            {
+                Token = tokenString
+            });
+        }
+
+        public class LoginRequest
         {
-            Token = tokenString
-        });
+            public string username { get; set; }
+            public string password { get; set; }
+        }
     }
 
-    public class LoginRequest
-    {
-        public string username { get; set; }
-        public string password { get; set; }
-    }
 }

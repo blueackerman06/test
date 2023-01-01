@@ -10,8 +10,8 @@ using TraniningSystemAPI.Data;
 namespace TraniningSystemAPI.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20221230180242_update_account_table")]
-    partial class update_account_table
+    [Migration("20230101163339_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,9 @@ namespace TraniningSystemAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateTime")
@@ -418,19 +421,24 @@ namespace TraniningSystemAPI.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobPositionId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TraineeAge")
+                    b.Property<int?>("JobPositionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TraineeAge")
                         .HasColumnType("int");
 
                     b.Property<string>("TraineeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TraineerID");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("DepartmentId");
 
@@ -733,17 +741,19 @@ namespace TraniningSystemAPI.Migrations
 
             modelBuilder.Entity("TraniningSystemAPI.Entity.Trainee", b =>
                 {
+                    b.HasOne("TraniningSystemAPI.Entity.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("TraniningSystemAPI.Entity.Department", "Department")
                         .WithMany("Trainees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("TraniningSystemAPI.Entity.JobPosition", "JobPosition")
                         .WithMany("Trainees")
-                        .HasForeignKey("JobPositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("JobPositionId");
+
+                    b.Navigation("Account");
 
                     b.Navigation("Department");
 

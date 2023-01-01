@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TrainingSystemTrainerWEB.Pages.Home;
-
-public class Home : PageModel
+namespace TrainingSystemTrainerWEB.Pages.Home
 {
-    public void OnGet()
+    public class Home : PageModel
     {
+        public void OnGet()
+        {
+
+        }
 
     }
-
 }

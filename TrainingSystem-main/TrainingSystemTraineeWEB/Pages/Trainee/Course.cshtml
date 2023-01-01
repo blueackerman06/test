@@ -114,7 +114,7 @@
             body: JSON.stringify({
                 courseKey: courseId,
                 traineeKey: 0,
-                accountId: payload.unique_name
+                accountId: Number(payload.unique_name)
             })
         });
 

@@ -8,6 +8,27 @@ namespace TraniningSystemAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Account",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Fullname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Account", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Course",
                 columns: table => new
                 {
@@ -180,25 +201,32 @@ namespace TraniningSystemAPI.Migrations
                     TraineerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TraineeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TraineeAge = table.Column<int>(type: "int", nullable: false),
-                    JobPositionId = table.Column<int>(type: "int", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                    TraineeAge = table.Column<int>(type: "int", nullable: true),
+                    JobPositionId = table.Column<int>(type: "int", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
+                    AccountId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trainee", x => x.TraineerID);
                     table.ForeignKey(
+                        name: "FK_Trainee_Account_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Account",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Trainee_Department_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Department",
                         principalColumn: "DepartmentID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Trainee_JobPosition_JobPositionId",
                         column: x => x.JobPositionId,
                         principalTable: "JobPosition",
                         principalColumn: "JobPositionID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -309,11 +337,18 @@ namespace TraniningSystemAPI.Migrations
                     TraineeKey = table.Column<int>(type: "int", nullable: false),
                     ResultOfEvaluation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsComplete = table.Column<bool>(type: "bit", nullable: false),
-                    Point = table.Column<int>(type: "int", nullable: false)
+                    Point = table.Column<int>(type: "int", nullable: false),
+                    AccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CourseParticipant", x => new { x.CourseKey, x.TraineeKey });
+                    table.ForeignKey(
+                        name: "FK_CourseParticipant_Account_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Account",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CourseParticipant_Course_CourseKey",
                         column: x => x.CourseKey,
@@ -543,6 +578,11 @@ namespace TraniningSystemAPI.Migrations
                 column: "ExercisesExerciseID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CourseParticipant_AccountId",
+                table: "CourseParticipant",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseParticipant_TraineeKey",
                 table: "CourseParticipant",
                 column: "TraineeKey");
@@ -571,6 +611,11 @@ namespace TraniningSystemAPI.Migrations
                 name: "IX_SkillTrainingProgram_TrainingProgramKey",
                 table: "SkillTrainingProgram",
                 column: "TrainingProgramKey");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trainee_AccountId",
+                table: "Trainee",
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trainee_DepartmentId",
@@ -677,6 +722,9 @@ namespace TraniningSystemAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Trainer");
+
+            migrationBuilder.DropTable(
+                name: "Account");
 
             migrationBuilder.DropTable(
                 name: "Department");
