@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,18 @@ namespace TraniningSystemAPI.Controllers
 
         // GET: api/course
         [HttpGet]
-        public IEnumerable<CourseViewModel> Get()
+        public IEnumerable<CourseViewModel> Get(int? classId)
         {
-            return _context.Course.Select(item => new CourseViewModel
+            var query = _context.Course.AsQueryable();
+
+            if (classId.HasValue)
+            {
+                query = query.Where(item => 
+                                                    item.ClassroomDetails
+                                                        .Any(c => c.Classroom.ClassroomID == classId));
+            } 
+            
+            return query.Select(item => new CourseViewModel
             {
                 CourseID = item.CourseID,
                 NumberOfLesson = item.NumberOfLesson,
@@ -33,7 +43,9 @@ namespace TraniningSystemAPI.Controllers
                 CourseName = item.CourseName,
                 CalculatesPointGuide = item.CalculatesPointGuide,
                 AccountIds = item.CourseParticipant.Select(a => a.AccountId).ToList()
-            }).ToList();
+            })
+                .ToList();
+            
         }
 
         // GET: api/course
@@ -101,7 +113,6 @@ namespace TraniningSystemAPI.Controllers
         public IEnumerable<Course> SearchCourse(string searchString)
         {
             return _context.Course
-                .Include(item => item.CourseParticipant)
                 .Where(c => c.CourseName.Contains(searchString))
                 .ToList();
         }
@@ -127,7 +138,7 @@ namespace TraniningSystemAPI.Controllers
         {
             _context.Course.Add(course);
             _context.SaveChanges();
-            return RedirectPermanent("https://localhost:44331/trainer/add-course.htm");
+            return RedirectPermanent("https://localhost:5001/trainer/add-course.htm");
         }
 
 

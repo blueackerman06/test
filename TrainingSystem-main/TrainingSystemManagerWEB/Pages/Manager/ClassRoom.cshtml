@@ -1,0 +1,193 @@
+﻿@page "/class-room.htm"
+@model TrainingSystemManagerWEB.Pages.ClassRoom
+@{
+    ViewBag.PageName = "ClassRoom";
+}
+@using Newtonsoft.Json
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-3" style="position: absolute; right: 0;">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                aria-describedby="search-addon" onkeyup="sendData(this)" />
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Goal</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col" colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+
+            @foreach (var course in Model.ListCourse)
+            {
+
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@course.ClassroomID</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @course.ClassroomName
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        @course.Goal
+                    </td>
+                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                        <textarea disabled style="border: none"> @course.Desciption </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/course/@course.ClassroomID">Chi
+                            tiết</a>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <button class="main-btn success-btn btn-hover btn-sm" onclick="sendNotify('@course.ClassroomName')">
+                            Request course
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    @{
+        var json = JsonConvert.SerializeObject(Model.ListCourse);
+    }
+    const data = @Html.Raw(json);
+    const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+
+    function decodeJWT(token) {
+        // Split the token into three parts (header, payload, signature)
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+            throw new Error('Invalid JWT');
+        }
+
+        // Decode the base64-encoded header and payload
+        const header = JSON.parse(atob(parts[0]));
+        const payload = JSON.parse(atob(parts[1]));
+
+        return {
+            header,
+            payload
+        };
+    }
+
+    async function sendNotify(className) {
+        console.log(className,'className');
+        const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+        if (!payload.unique_name) {
+            window.alert('please login!');
+            return;
+        }
+
+        const apiUrl = 'https://localhost:5001';
+        const response = await fetch(apiUrl + '/api/notify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: "[Manager] Yêu cầu thêm khoá học cho lớp: " + className,
+                reciveId: payload.unique_name
+            })
+        });
+
+        if (response.ok) {
+            window.alert('notify send');
+
+        } else {
+            window.alert('join error');
+        }
+    }
+
+
+
+    function sendData(e) {
+        const $searchResult = $('#course-list');
+        let match = e.value.match(/^[a-zA-Z0-9]*/);
+        let match2 = e.value.match(/\s*/);
+
+        if (match2[0] === e.value) {
+            $searchResult.html('');
+            fetch('https://localhost:5001/api/course').then(r => r.json()).then(data => {
+                let payload = data;
+                $searchResult.html('');
+                if (payload.length < 1) {
+                    $searchResult.html('<h5>không tìm thấy</h5>');
+                    return;
+                }
+
+                payload.forEach((item) => {
+                    $searchResult
+                        .append(`
+                        <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">${item.courseID}</th>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.courseName}
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        ${item.numberOfLesson}
+                    </td>
+                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                        <textarea disabled  style="border: none"> ${item.target} </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.assessmentForm}
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
+                    </td>
+                </tr>
+                    `);
+                })
+            });
+            return;
+        }
+
+        if (match[0] === e.value) {
+            fetch('https://localhost:5001/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
+                let payload = data;
+                $searchResult.html('');
+                if (payload.length < 1) {
+                    $searchResult.html('<h5>không tìm thấy</h5>');
+                    return;
+                }
+
+                payload.forEach((item) => {
+                    $searchResult
+                        .append(`
+                        <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">${item.courseID}</th>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.courseName}
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        ${item.numberOfLesson}
+                    </td>
+                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                        <textarea disabled  style="border: none"> ${item.target} </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.assessmentForm}
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
+                    </td>
+                </tr>
+                    `);
+                })
+            });
+        }
+    }
+</script>
