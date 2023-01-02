@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TrainingSystemTrainerWEB.Pages.Register;
-
-public class Register : PageModel
+namespace TrainingSystemTrainerWEB.Pages.Register
 {
-    public void OnGet()
+
+    public class Register : PageModel
     {
+        public void OnGet()
+        {
+
+        }
 
     }
-
 }

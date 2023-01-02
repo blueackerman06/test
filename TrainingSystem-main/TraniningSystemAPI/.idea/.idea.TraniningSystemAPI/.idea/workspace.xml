@@ -39,7 +39,7 @@
   <component name="RunManager" selected=".NET Launch Settings Profile.TraniningSystemAPI">
     <configuration name="TrainingSystemManagerWEB" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TrainingSystemManagerWEB/TrainingSystemManagerWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="TrainingSystemManagerWEB" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -54,7 +54,7 @@
     </configuration>
     <configuration name="TrainingSystemManagerWEB: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TrainingSystemManagerWEB/TrainingSystemManagerWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -69,7 +69,7 @@
     </configuration>
     <configuration name="TrainingSystemTraineeWEB" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TrainingSystemTraineeWEB/TrainingSystemTraineeWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="TrainingSystemTraineeWEB" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -84,7 +84,7 @@
     </configuration>
     <configuration name="TrainingSystemTraineeWEB: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TrainingSystemTraineeWEB/TrainingSystemTraineeWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -99,7 +99,7 @@
     </configuration>
     <configuration name="TrainingSystemTrainerWEB" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TrainingSystemTrainerWEB/TrainingSystemTrainerWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="TrainingSystemTrainerWEB" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -114,7 +114,7 @@
     </configuration>
     <configuration name="TrainingSystemTrainerWEB: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TrainingSystemTrainerWEB/TrainingSystemTrainerWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -129,7 +129,7 @@
     </configuration>
     <configuration name="TraningSystemAdminWEB: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TraningSystemWEB/TraningSystemAdminWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -144,7 +144,7 @@
     </configuration>
     <configuration name="TraningSystemAdminWEB: TraningSystemWEB" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/../TraningSystemWEB/TraningSystemAdminWEB.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="TraningSystemWEB" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -159,7 +159,7 @@
     </configuration>
     <configuration name="TraniningSystemAPI" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/TraniningSystemAPI.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="TraniningSystemAPI" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -174,7 +174,7 @@
     </configuration>
     <configuration name="TraniningSystemAPI: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/TraniningSystemAPI.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="netcoreapp3.1" />
       <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />

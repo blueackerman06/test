@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
+using System;
 
 namespace TraniningSystemAPI.Controllers
 {
@@ -146,6 +147,7 @@ namespace TraniningSystemAPI.Controllers
         public IActionResult JoinCourse([FromBody] CourseParticipantViewModel model)
         {
             var trainee = _context.Trainee.First(item => item.AccountId == model.AccountId);
+            Console.WriteLine(trainee.AccountId);
             _context.CourseParticipant.Add(new CourseParticipant()
             {
                 CourseKey = model.CourseKey,
