@@ -99,7 +99,7 @@
             },
             body: JSON.stringify({
                 message: "[Manager] Yêu cầu thêm khoá học cho lớp: " + className,
-                reciveId: payload.unique_name
+                reciveId: parseInt(payload.unique_name)
             })
         });
 
@@ -111,83 +111,4 @@
         }
     }
 
-
-
-    function sendData(e) {
-        const $searchResult = $('#course-list');
-        let match = e.value.match(/^[a-zA-Z0-9]*/);
-        let match2 = e.value.match(/\s*/);
-
-        if (match2[0] === e.value) {
-            $searchResult.html('');
-            fetch('https://localhost:5001/api/course').then(r => r.json()).then(data => {
-                let payload = data;
-                $searchResult.html('');
-                if (payload.length < 1) {
-                    $searchResult.html('<h5>không tìm thấy</h5>');
-                    return;
-                }
-
-                payload.forEach((item) => {
-                    $searchResult
-                        .append(`
-                        <tr>
-                    <th scope="row" width="20" style="padding-right: 20px;">${item.courseID}</th>
-                    <td width="100" style="padding-right: 50px;">
-                        ${item.courseName}
-                    </td>
-                    <td width="100" style="padding-right: 50px; ">
-                        ${item.numberOfLesson}
-                    </td>
-                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
-                        <textarea disabled  style="border: none"> ${item.target} </textarea>
-                    </td>
-                    <td width="100" style="padding-right: 50px;">
-                        ${item.assessmentForm}
-                    </td>
-                    <td width="100" style="padding-right: 50px;">
-                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
-                    </td>
-                </tr>
-                    `);
-                })
-            });
-            return;
-        }
-
-        if (match[0] === e.value) {
-            fetch('https://localhost:5001/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
-                let payload = data;
-                $searchResult.html('');
-                if (payload.length < 1) {
-                    $searchResult.html('<h5>không tìm thấy</h5>');
-                    return;
-                }
-
-                payload.forEach((item) => {
-                    $searchResult
-                        .append(`
-                        <tr>
-                    <th scope="row" width="20" style="padding-right: 20px;">${item.courseID}</th>
-                    <td width="100" style="padding-right: 50px;">
-                        ${item.courseName}
-                    </td>
-                    <td width="100" style="padding-right: 50px; ">
-                        ${item.numberOfLesson}
-                    </td>
-                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
-                        <textarea disabled  style="border: none"> ${item.target} </textarea>
-                    </td>
-                    <td width="100" style="padding-right: 50px;">
-                        ${item.assessmentForm}
-                    </td>
-                    <td width="100" style="padding-right: 50px;">
-                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
-                    </td>
-                </tr>
-                    `);
-                })
-            });
-        }
-    }
 </script>
