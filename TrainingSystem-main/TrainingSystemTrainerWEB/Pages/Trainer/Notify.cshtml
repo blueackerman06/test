@@ -20,9 +20,7 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Tin nhắn</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col" colspan="2"></th>
+                <th scope="col" style="width: 60%">Tin nhắn</th>
             </tr>
         </thead>
         <tbody id="course-list">
@@ -35,9 +33,7 @@
                     <td width="100" style="padding-right: 50px;">
                         @course.Message
                     </td>
-                    <td width="100" style="padding-right: 50px;">
-                        @(!course.Status ? "Chưa xác nhận" : "Đã xác nhận" )
-                    </td>
+                
                 </tr>
             }
         </tbody>

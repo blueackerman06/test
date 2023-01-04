@@ -10,7 +10,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         public int ClassroomID;
         public void OnGet()
         {
-            var url = "https://localhost:5001/api/classroom/newest";
+            var url = "https://localhost:44321/api/classroom/newest";
 
             var responseTask = client.GetAsync(url);
             responseTask.Wait();

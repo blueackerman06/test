@@ -50,7 +50,7 @@
     }
 
     function UpdateSkill(index) {
-        fetch('https://localhost:5001/api/skill/' + parseInt(index) + '?SkillName=' + $('#skill-' + index + '').val(), {
+        fetch('https://localhost:44321/api/skill/' + parseInt(index) + '?SkillName=' + $('#skill-' + index + '').val(), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@
 
     function AddSkill() {
         var name = $('#skill-name-input').val()
-        fetch('https://localhost:5001/api/skill' + "?SkillName=" + name, {
+        fetch('https://localhost:44321/api/skill' + "?SkillName=" + name, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
@@ -89,7 +89,7 @@
     }
 
     function DeleteSkill(index) {
-            fetch('https://localhost:5001/api/skill/' + parseInt(index), {
+            fetch('https://localhost:44321/api/skill/' + parseInt(index), {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'

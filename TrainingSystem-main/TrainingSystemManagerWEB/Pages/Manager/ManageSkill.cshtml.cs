@@ -12,7 +12,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
         public List<Skill> ListSkill { get; set; }
         public void OnGet()
         {
-            var url = "https://localhost:5001/api/skill";
+            var url = "https://localhost:44321/api/skill";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;

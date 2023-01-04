@@ -12,7 +12,7 @@ namespace TrainingSystemManagerWEB.Pages
         public List<Classroom> ListCourse { get; set; }
         public void OnGet()
         {
-            var url = "https://localhost:5001/api/classroom";
+            var url = "https://localhost:44321/api/classroom";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;

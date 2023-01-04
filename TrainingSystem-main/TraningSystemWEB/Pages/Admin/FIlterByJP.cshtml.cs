@@ -18,7 +18,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         public List<TrainingProgramDto> ListTrainingProgram { get; set; }
         public void ApitoGetListData(string type)
         {
-            var url = "https://localhost:5001/api/";
+            var url = "https://localhost:44321/api/";
             var response = client.GetAsync(url + type);
             response.Wait();
             HttpResponseMessage result = response.Result;
@@ -42,7 +42,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
 
         public void ApitoGetListTP()
         {
-            var url = "https://localhost:5001/api/job-positions/";
+            var url = "https://localhost:44321/api/job-positions/";
             var response = client.GetAsync(url + JobPositionID + "/trainingprogram");
             response.Wait();
             HttpResponseMessage result = response.Result;

@@ -139,7 +139,7 @@ namespace TraniningSystemAPI.Controllers
         {
             _context.Course.Add(course);
             _context.SaveChanges();
-            return RedirectPermanent("https://localhost:5001/trainer/add-course.htm");
+            return RedirectPermanent("https://localhost:44322/trainer/add-course.htm");
         }
 
 

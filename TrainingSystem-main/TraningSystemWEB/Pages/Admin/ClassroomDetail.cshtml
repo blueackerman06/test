@@ -104,7 +104,7 @@
     });
 
     function DeleteClassroomDetail(index) {
-        fetch('https://localhost:5001/api/classroom-detail/' +@Model.ClassroomID+'/' + parseInt($("#course-" + index).val()), {
+        fetch('https://localhost:44321/api/classroom-detail/' +@Model.ClassroomID+'/' + parseInt($("#course-" + index).val()), {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'
@@ -123,7 +123,7 @@
             return;
         }
         if (match[0] === e.value) {
-            fetch('https://localhost:5001/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
+            fetch('https://localhost:44321/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
                 let payload = data;
                 $searchResult.html('');
                 if (payload.length < 1) {
@@ -148,7 +148,7 @@
     }
 
     function addOneClassroomDetail(index) {
-        fetch('https://localhost:5001/api/classroom-detail', {
+        fetch('https://localhost:44321/api/classroom-detail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

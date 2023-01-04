@@ -105,7 +105,7 @@
             return;
         }
 
-        const apiUrl = 'https://localhost:5001';
+        const apiUrl = 'https://localhost:44321';
         const response = await fetch(apiUrl + '/api/course/join', {
             method: 'POST',
             headers: {
@@ -136,7 +136,7 @@
 
         if (match2[0] === e.value) {
             $searchResult.html('');
-            fetch('https://localhost:5001/api/course').then(r => r.json()).then(data => {
+            fetch('https://localhost:44321/api/course').then(r => r.json()).then(data => {
                 let payload = data;
                 $searchResult.html('');
                 if (payload.length < 1) {
@@ -172,7 +172,7 @@
         }
 
         if (match[0] === e.value) {
-            fetch('https://localhost:5001/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
+            fetch('https://localhost:44321/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
                 let payload = data;
                 $searchResult.html('');
                 if (payload.length < 1) {

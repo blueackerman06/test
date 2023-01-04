@@ -49,7 +49,7 @@
     }
 
     function UpdateKnowledge(index) {
-        fetch('https://localhost:5001/api/knowledge/' + parseInt(index) + '?KnowledgeName=' + $('#knowledge-' + index + '').val(), {
+        fetch('https://localhost:44321/api/knowledge/' + parseInt(index) + '?KnowledgeName=' + $('#knowledge-' + index + '').val(), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@
 
     function AddKnowledge() {
         var name = $('#knowledge-name-input').val()
-        fetch('https://localhost:5001/api/knowledge' + "?KnowledgeName=" + name, {
+        fetch('https://localhost:44321/api/knowledge' + "?KnowledgeName=" + name, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
@@ -88,7 +88,7 @@
     }
 
     function DeleteKnowledge(index) {
-            fetch('https://localhost:5001/api/knowledge/' + parseInt(index), {
+            fetch('https://localhost:44321/api/knowledge/' + parseInt(index), {
              method: 'DELETE',
              headers: {
                  'Content-Type': 'application/json'

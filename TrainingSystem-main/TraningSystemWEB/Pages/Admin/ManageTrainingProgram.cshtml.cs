@@ -18,7 +18,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
 
         public void ApitoGetListData(string type)
         {
-            var url = "https://localhost:5001/api/";
+            var url = "https://localhost:44321/api/";
             var response = client.GetAsync(url + type);
             response.Wait();
             HttpResponseMessage result = response.Result;

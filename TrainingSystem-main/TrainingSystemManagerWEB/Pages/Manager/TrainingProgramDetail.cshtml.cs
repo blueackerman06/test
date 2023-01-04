@@ -21,7 +21,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
         public List<Course> ListCourse { get; set; }
         public void CallApiToGetData(string type)
         {
-            var url = "https://localhost:5001/api/training";
+            var url = "https://localhost:44321/api/training";
             var responseTask = client.GetAsync(url+"/"+ TrainingProgramID + "/"+ type);
             responseTask.Wait();
             HttpResponseMessage resultl = responseTask.Result;
@@ -49,7 +49,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
 
         public void CallApiToGetList(string type)
         {
-            var url = "https://localhost:5001/api/";
+            var url = "https://localhost:44321/api/";
             var response = client.GetAsync(url + type);
             response.Wait();
             HttpResponseMessage result = response.Result;

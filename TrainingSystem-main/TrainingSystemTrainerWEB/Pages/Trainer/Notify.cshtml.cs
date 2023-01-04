@@ -12,7 +12,7 @@ namespace TrainingSystemTrainerWEB.Pages
         public List<Notify> ListCourse { get; set; }
         public void OnGet()
         {
-            var url = "https://localhost:5001/api/notify?status=true";
+            var url = "https://localhost:44321/api/notify?status=true";
             var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;

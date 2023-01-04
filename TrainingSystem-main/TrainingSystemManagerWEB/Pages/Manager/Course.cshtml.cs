@@ -17,7 +17,7 @@ namespace TrainingSystemManagerWEB.Pages
 
         public void CallAPIGetCourse()
         {
-            var url = "https://localhost:5001/api/course";
+            var url = "https://localhost:44321/api/course";
             var responseTask = client.GetAsync(url + "?classId=" + ClassId);
             responseTask.Wait();
             HttpResponseMessage resultl = responseTask.Result;
@@ -30,7 +30,7 @@ namespace TrainingSystemManagerWEB.Pages
         {
             ClassId = Int32.Parse((string)RouteData.Values["ClassId"]);
             this.CallAPIGetCourse();
-            // var url = "https://localhost:5001/api/course";
+            // var url = "https://localhost:44321/api/course";
             // var response = client.GetAsync(url);
             // response.Wait();
             // HttpResponseMessage result = response.Result;

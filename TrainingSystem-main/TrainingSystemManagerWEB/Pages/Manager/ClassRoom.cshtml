@@ -58,17 +58,17 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                       <textarea id="content-@course.ClassroomID" class="form-control"> </textarea>
+                                       <textarea required id="content-@course.ClassroomID" class="form-control"> </textarea>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary" onclick="sendNotify('@course.ClassroomID','@course.ClassroomName')">Send</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <button type="button" class="btn btn-primary" onclick="sendNotify('@course.ClassroomID','@course.ClassroomName')">Gửi </button>
                                 </div>
                                 </div>
                             </div>
                         </div>
                         <button data-toggle="modal" data-target="#modal-@course.ClassroomID" class="main-btn success-btn btn-hover btn-sm" >
-                            Request course
+                            Gửi thông báo
                         </button>
                     </td>
                 </tr>
@@ -103,15 +103,21 @@
     }
 
     async function sendNotify(id, className) {
-         
+
         const textArea = document.querySelector('#content-' + id);
-        const payload = decodeJWT(localStorage.getItem('token'))?.payload;
-        if (!payload.unique_name) {
-            window.alert('please login!');
+
+        if (!textArea.value || textArea?.value.trim() == '') {
+            window.alert("Vui lòng nhập nội dung");    
             return;
         }
 
-        const apiUrl = 'https://localhost:5001';
+        const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+        if (!payload.unique_name) {
+            window.alert('Vui lòng đăng nhập!');
+            return;
+        }
+
+        const apiUrl = 'https://localhost:44321';
         const response = await fetch(apiUrl + '/api/notify', {
             method: 'POST',
             headers: {
@@ -119,15 +125,15 @@
             },
             body: JSON.stringify({
                 message: "[Manager] " + className  + ": "+  textArea.value,
-                reciveId: payload.unique_name
+                reciveId: parseInt(payload.unique_name)
             })
         });
 
         if (response.ok) {
-            window.alert('notify send');
+            window.alert('Gửi thông báo thành công');
 
         } else {
-            window.alert('join error');
+            window.alert('Gửi thông báo thất bại');
         }
 
         console.log($('#modal-'+ id));

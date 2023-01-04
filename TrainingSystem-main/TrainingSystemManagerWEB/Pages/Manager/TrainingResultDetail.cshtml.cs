@@ -16,7 +16,7 @@ namespace TrainingSystemManagerWEB.Pages.Manager
         public List<EvaluateKnowledgeDto> ListKnowledge { get; set; }
         public void CallApiToGetList(string type)
         {
-            var url = "https://localhost:5001/api/course-participant";
+            var url = "https://localhost:44321/api/course-participant";
             var response = client.GetAsync(url + '/' + CourseID + '/' + TraineeID+'/'+type);
             response.Wait();
             HttpResponseMessage result = response.Result;

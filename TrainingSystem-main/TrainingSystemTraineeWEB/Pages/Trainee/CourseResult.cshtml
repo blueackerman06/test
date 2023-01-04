@@ -86,7 +86,7 @@
             window.alert('please login!');
             return;
         }
-        const apiUrl = 'https://localhost:5001';
+        const apiUrl = 'https://localhost:44321';
         const response = await fetch(apiUrl + '/api/course/result?userId=' + payload.unique_name);
         const data = await response.json();
         renderTableBody(data);
