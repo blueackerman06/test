@@ -19,9 +19,14 @@ namespace TraniningSystemAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(bool status = false)
         {
-            var data = _context.Notify.ToList();           
+            var query = _context.Notify.AsQueryable();
+            if (status)
+            {
+                query = query.Where(item => item.Status);
+            }
+            var data = query.ToList();           
             return Ok(data);
         }
 
